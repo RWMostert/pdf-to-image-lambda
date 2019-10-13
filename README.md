@@ -5,7 +5,7 @@ Thanks to Lambda's concurrency, this approach is well-suited to variable bulk/ba
 
 Please double check you are in the AWS region you intend; this needs to be the **same region** as the bucket which will contain the Word documents you wish to convert.
 
-##S3 Trigger
+## S3 Trigger
 This function can respond to S3 ObjectCreated events. 
 
 To configure the trigger, on the Lambda function, in "Designer > Add triggers", click "S3". The "Configure triggers" dialog appears.
