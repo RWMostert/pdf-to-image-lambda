@@ -95,9 +95,10 @@ def pdf_to_image(event):
         ).put(
             Body=buffer,
             Metadata={
-                'original_document_key': event.key,
-                'page_number': str(page_num),
-                'page_count': str(len(images))
+                'ORIGINAL_DOCUMENT_BUCKET': event.bucket,
+                'ORIGINAL_DOCUMENT_KEY': event.key,
+                'PAGE_NUMBER': str(page_num),
+                'PAGE_COUNT': str(len(images))
             }
         )
 
