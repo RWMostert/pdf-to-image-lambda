@@ -9,9 +9,9 @@
     }
   },
   "environment_variables": {
-    "ORIGIN_BUCKET": <S3 ORIGIN BUCKET HERE>,
-    "DESTINATION_BUCKET": <S3 DESTINATION BUCKET HERE>,
+    "ORIGIN_BUCKET": "pdf-bucket-0",
+    "DESTINATION_BUCKET": "converted-image-bucket-1",
     "FMT": "png",
-    "DPI": 300
+    "DPI": "300"
   }
 }

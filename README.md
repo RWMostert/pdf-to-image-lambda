@@ -3,7 +3,7 @@ Convert a PDF document in a source S3 bucket to a image, saving the image to a d
 
 Thanks to Lambda's concurrency, this approach is well-suited to variable bulk/batch higher-volume conversion workloads.
 
-Please double check you are in the AWS region you intend; this needs to be the **same region** as the bucket which will contain the Word documents you wish to convert.
+Please double check you are in the AWS region you intend; this needs to be the **same region** as the bucket which will contain the PDF documents you wish to convert.
 
 ## S3 Trigger
 This function can respond to S3 ObjectCreated events. 
