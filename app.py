@@ -80,14 +80,17 @@ def pdf_to_image(event):
 
     for page_num, image in enumerate(images):
 
-        # Then save the image and name it: <name of the pdf>-page<page number>.jpeg
-        location = f"{event.key}_page_{str(page_num)}.jpeg"
+        # The directory is: <name of the pdf>-num_pages-<number of pages in the pdf>
+        directory = event.key.split('.')[0] + "-num_pages-" + str(len(images))
+
+        # Then save the image and name it: <name of the pdf>-page<page number>.FMT
+        location = directory + "/" + event.key.split('.')[0] + "-page" + str(page_num) + '.' + FMT
 
         logging.info(f"Saving page number {str(page_num)} to S3 at location: {DESTINATION_BUCKET}, {location}.")
 
         # Load it into the buffer and save the boytjie to S3
         buffer = BytesIO()
-        image.save(buffer, "JPEG")
+        image.save(buffer, FMT.upper())
         buffer.seek(0)
         s3.Object(
             DESTINATION_BUCKET,
