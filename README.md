@@ -10,8 +10,11 @@ Please double check you are in the AWS region you intend; this needs to be the *
 - In `.chalice/config/json` set the following environment variables:
 
 > **ORIGIN_BUCKET**: the _name_ of the S3 bucket in which the original PDF documents are stored.  Any new uploads to this bucket will trigger the function to run.
+
 > **DESTINATION_BUCKET**: the _name_ of the S3 bucket to which the converted image will be saved.
+
 > **DPI** (optional): Dots per inch, can be seen as the relative resolution of the output image, higher is better but anything above 300 is usually not discernable to the naked eye. Keep in mind that this is directly related to the ouput images size when using file formats without compression (like PPM).
+
 > **FORMAT** (optional): File format of the output images.  Supported values are "ppm", "jpeg", "png" and "tiff".
 
 - Next create a Python virtual environment: `virtualenv env -p python3`.
