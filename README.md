@@ -5,31 +5,21 @@ Thanks to Lambda's concurrency, this approach is well-suited to variable bulk/ba
 
 Please double check you are in the AWS region you intend; this needs to be the **same region** as the bucket which will contain the PDF documents you wish to convert.
 
-## S3 Trigger
-This function can respond to S3 ObjectCreated events. 
+## Getting Started
+- Clone this repository.
+- In `.chalice/config/json` set the following environment variables:
 
-To configure the trigger, on the Lambda function, in "Designer > Add triggers", click "S3". The "Configure triggers" dialog appears.
-Select a bucket (any time a pdf is added to this bucket, the function will run).
+> **ORIGIN_BUCKET**: the _name_ of the S3 bucket in which the original PDF documents are stored.  Any new uploads to this bucket will trigger the function to run.
+> **DESTINATION_BUCKET**: the _name_ of the S3 bucket to which the converted image will be saved.
+> **DPI** (optional): Dots per inch, can be seen as the relative resolution of the output image, higher is better but anything above 300 is usually not discernable to the naked eye. Keep in mind that this is directly related to the ouput images size when using file formats without compression (like PPM).
+> **FORMAT** (optional): File format of the output images.  Supported values are "ppm", "jpeg", "png" and "tiff".
 
-Verify that "all object create events" is selected (or choose PUT POST or COPY).
+- Next create a Python virtual environment: `virtualenv env -p python3`.
+- Activate the virtual environment: `source env/bin/activate`
+- Install the requirements: `pip3 install -r requirements.txt`
+- And deploy: `chalice deploy`
 
-Click "Add" (bottom right), then "Save" (top right).
-
-## Environment Variables
-
-On the same screen in the Lambda Management Console for this function, scroll down to "Environment Variables":
-
-You will need to set the output S3 Bucket for this function.  Optionally, you could also set the **format** and the **dpi** for the output image.
-
-### Required:
-
-**DESTINATION_BUCKET**: the name of the S3 bucket to which the PDF will be saved (if blank, it should write to the input event bucket)
-
-### Optional:
-
-**DPI**: Dots per inch, can be seen as the relative resolution of the output image, higher is better but anything above 300 is usually not discernable to the naked eye. Keep in mind that this is directly related to the ouput images size when using file formats without compression (like PPM).
-
-**FORMAT**: File format of the output images.  Supported values are "ppm", "jpeg", "png" and "tiff".
+This should deploy a Lambda function which triggers on any upload to your `ORIGIN_BUCKET`. 
 
 ## Execution Role
 
@@ -50,6 +40,23 @@ The easiest is to open the Lambda Function settings, scroll down to the **Execut
 ```
 
 Without GetObject permission on the triggering bucket and PutObject permission on the output bucket, you'll get Access Denied errors.
+
+## S3 Trigger
+This function can respond to S3 ObjectCreated events. 
+
+To configure the trigger, on the Lambda function, in "Designer > Add triggers", click "S3". The "Configure triggers" dialog appears.
+Select a bucket (any time a pdf is added to this bucket, the function will run).
+
+Verify that "all object create events" is selected (or choose PUT POST or COPY).
+
+Click "Add" (bottom right), then "Save" (top right).
+
+## Environment Variables
+
+On the same screen in the Lambda Management Console for this function, scroll down to "Environment Variables":
+
+You will need to set the output S3 Bucket for this function.  Optionally, you could also set the **format** and the **dpi** for the output image.
+
 
 ## Confirm successful installation
 ### S3 Trigger
