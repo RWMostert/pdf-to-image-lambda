@@ -5,6 +5,8 @@ Thanks to Lambda's concurrency, this approach is well-suited to variable bulk/ba
 
 Please double check you are in the AWS region you intend; this needs to be the **same region** as the bucket which will contain the PDF documents you wish to convert.
 
+This function is deployed using Chalice (https://github.com/aws/chalice).
+
 ## Getting Started
 - Clone this repository.
 - In `.chalice/config/json` set the following environment variables:
